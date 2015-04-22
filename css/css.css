@@ -1,0 +1,5 @@
+.K_complete { position:absolute; background:#fff; display:none; border:1px solid #ccc; z-index:9999;}
+.K_complete ul { list-style:none; font-size:12px; font-family:Verdana, Geneva, sans-serif; padding: 0; margin: 0;}
+.K_complete ul li { cursor:default; text-indent:3px; text-align:left; overflow:hidden;}
+.K_complete ul li:hover, .K_complete ul .active {background:#eee;}
+.K_text { width:300px; height:22px; line-height:22px; padding-left:3px; border:1px solid #ccc;}
