@@ -4,20 +4,20 @@
  *	version:	Kcomplete 1.1 - 2013-12-03
  */
 (function($){
-	$.fn.Kcomplete = function(options){
+    $.fn.Kcomplete = function(options){
 
-		$(this).parent().append('<div class="K_complete"><ul></ul></div>');
-		$(this).parent().find('.K_complete').width($(this).outerWidth(true)-2);
+        $(this).parent().append('<div class="K_complete"><ul></ul></div>');
+        $(this).parent().find('.K_complete').width($(this).outerWidth(true)-2);
 
         var K_COMPLETE = $(this);
         var NUMBER = 0;
-        var CURRENT = $('.K_complete');
+        var CURRENT = $(this).siblings('.K_complete');
         var SELECT_NUM, THIS_TEXT, LI_MERGE;
         var options = $.extend({}, $.fn.Kcomplete.defaults, options);
 
         CURRENT.bind('boxClose', function(){
-			$(this).hide().find('ul').html('');
-		});
+            $(this).hide().find('ul').html('');
+        });
 
         function keyUpFunc(k)
         {
@@ -66,27 +66,27 @@
             }
         }
 
-		K_COMPLETE.keyup(function(event){
+        K_COMPLETE.keyup(function(event){
 
             var keyCode = event.which;
             if(keyCode == 38 || keyCode == 40 || keyCode == 13)
             {
-				keyUpFunc(keyCode);
-			}
+                keyUpFunc(keyCode);
+            }
             else
             {
-				$.get(options.location, {input:K_COMPLETE.val()}, function(datas){
-					if(options.dataType == 'xml')
+                $.get(options.location, {input:K_COMPLETE.val()}, function(datas){
+                    if(options.dataType == 'xml')
                     {
                         var startDOM = $(datas).find(K_COMPLETE.val()).find('data')
                     }
-					else if(options.dataType == 'json')
+                    else if(options.dataType == 'json')
                     {
                         startDOM = $(datas);
                     }
 
                     eachFunc(startDOM);
-					if($.trim(K_COMPLETE.val()).length && startDOM.length > 0)
+                    if($.trim(K_COMPLETE.val()).length && startDOM.length > 0)
                     {
                         NUMBER = 0;
                         CURRENT.show();
@@ -95,18 +95,18 @@
                     {
                         CURRENT.trigger('boxClose');
                     }
-				}, options.dataType);
-			}
-		});
+                }, options.dataType);
+            }
+        });
 
-		function eachFunc(startDOM)
+        function eachFunc(startDOM)
         {
             var offsetLeft = K_COMPLETE.offset().left;
             var offsetTop = K_COMPLETE.offset().top + parseInt(options.liHeight);
 
-			LI_MERGE = '';
-			startDOM.each(function(i){
-				if(this.value.length > 0)
+            LI_MERGE = '';
+            startDOM.each(function(i){
+                if(this.value.length > 0)
                 {
                     if($(this).text().length == 0)
                     {
@@ -117,35 +117,36 @@
                         THIS_TEXT = $(this).text();
                     }
 
-					if(($.isNumeric(options.selectCount) && (i < options.selectCount)) || options.selectCount.length > 0)
+                    if(($.isNumeric(options.selectCount) && (i < options.selectCount)) || options.selectCount.length > 0)
                     {
-						LI_MERGE += '<li>' + THIS_TEXT + '</li>';
-					}
-				}
-			});
+                        LI_MERGE += '<li>' + THIS_TEXT + '</li>';
+                    }
+                }
+            });
 
-		    CURRENT.find('ul').html(LI_MERGE);
+            CURRENT.find('ul').html(LI_MERGE);
             CURRENT.css({'left':offsetLeft, 'top':offsetTop});
             CURRENT.find('li').css({'height':options.liHeight, 'line-height':options.liHeight});
-		    SELECT_NUM = CURRENT.find('li').size();
+            SELECT_NUM = CURRENT.find('li').size();
 
-			if(options.selectCount == 'scrollbar')
+            if(options.selectCount == 'scrollbar')
             {
-				if(SELECT_NUM < options.scrollBarCount)
+                if(SELECT_NUM < options.scrollBarCount)
                 {
-					var scrollHeight = SELECT_NUM * parseInt(options.liHeight)
-				}
+                    var scrollHeight = SELECT_NUM * parseInt(options.liHeight)
+                }
                 else
                 {
-					var scrollHeight = options.scrollBarCount * parseInt(options.liHeight)
-				}
-				CURRENT.css({'height':scrollHeight, 'overflow':'auto'});
-			}
-		}
+                    var scrollHeight = options.scrollBarCount * parseInt(options.liHeight)
+                }
+                CURRENT.css({'height':scrollHeight, 'overflow':'auto'});
+            }
+        }
 
-        $('.K_complete li').live('click', function(){
+        CURRENT.on('click', 'li', function(){
             K_COMPLETE.val($(this).text());
-            CURRENT.trigger('boxClose')
+            CURRENT.trigger('boxClose');
+            K_COMPLETE.trigger('change');
         });
 
         $(document).bind('click', function(e){
@@ -155,7 +156,7 @@
                 CURRENT.trigger('boxClose');
             }
         })
-	}
+    }
 
     $.fn.Kcomplete.version = '1.1';
 
