@@ -1,15 +1,15 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!doctype html>
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>jQuery Kcomplete Demo</title>
+  <meta charset="utf-8">
+    <title>Automatic prompting of jQuery plugin</title>
     <link type="text/css" rel="stylesheet" href="./css/css.css" />
     <script type="text/javascript" src="./js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="./js/jquery.Kcomplete-1.1.js"></script>
     <script type="text/javascript">
     $(function(){
         $(".K_text").Kcomplete({
-            location       : 'http://loc.auto.com/demo/data/data.php',
+            location       : 'http://www.xujiantao.com/test/data.php',
             dataType       : 'json'
         });
     });
@@ -19,8 +19,8 @@
 <body>
 
     <form action="http://www.baidu.com/s" method="get">
-        <p align="center">jQuery plugin Kcomplete defalut</p>
-        <p align="center">自动提示：<input type="text" name="wd" class="K_text" autocomplete="off" /><input type="submit" value="  search  " /></p>
+        <p align="center">Automatic prompting of jQuery plugin</p>
+        <p align="center"><input type="text" name="wd" class="K_text" autocomplete="off" /><input type="submit" value="  search  " /></p>
     </form>
 
 </body>
